@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-violet: var(--violet);
+  --color-violet-deep: var(--violet-deep);
+  --color-violet-soft: var(--violet-soft);
+  --color-teal: var(--teal);
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-soft: var(--teal-soft);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 1rem;
+  --violet: oklch(46.9% 0.152 301.7);
+  --violet-deep: oklch(36.3% 0.117 301.9);
+  --violet-soft: oklch(93% 0.032 301.7);
+  --teal: oklch(62.1% 0.107 184.3);
+  --teal-deep: oklch(47.6% 0.081 184.6);
+  --teal-soft: oklch(94% 0.028 184.3);
+  --leaf: oklch(71.2% 0.155 133.1);
+  --leaf-soft: oklch(95% 0.035 133.1);
+  --gold: oklch(77.5% 0.163 76.2);
+  --gold-soft: oklch(95.5% 0.04 80);
+  --cream: oklch(97.7% 0.007 80.7);
+  --cream-deep: oklch(94.8% 0.013 82.4);
+  --ink: oklch(27.6% 0.037 297.7);
+  --ink-soft: oklch(50.5% 0.024 297.7);
+  --gradient-brand: linear-gradient(120deg, var(--violet) 0%, var(--teal) 55%, var(--leaf) 100%);
+  --shadow-soft: 0 1px 2px oklch(27.6% 0.037 297.7 / 0.05), 0 12px 32px -18px oklch(27.6% 0.037 297.7 / 0.35);
+  --shadow-lift: 0 2px 4px oklch(27.6% 0.037 297.7 / 0.06), 0 24px 48px -24px oklch(27.6% 0.037 297.7 / 0.4);
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(100% 0 0);
+  --card-foreground: var(--ink);
+  --primary: var(--violet);
+  --primary-foreground: oklch(99% 0.005 80);
+  --secondary: var(--cream-deep);
+  --secondary-foreground: var(--ink);
+  --muted: var(--cream-deep);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--teal-soft);
+  --accent-foreground: var(--teal-deep);
+  --destructive: oklch(57.7% 0.245 27.325);
+  --border: oklch(27.6% 0.037 297.7 / 0.12);
+  --input: oklch(27.6% 0.037 297.7 / 0.16);
+  --ring: var(--teal);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility brand-rule {
+  background-image: var(--gradient-brand);
+}
+
+@utility brand-text {
+  background-image: var(--gradient-brand);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@utility aurora {
+  background-image:
+    radial-gradient(620px at 82% -8%, oklch(62.1% 0.107 184.3 / 0.18), transparent 62%),
+    radial-gradient(560px at 4% 6%, oklch(46.9% 0.152 301.7 / 0.14), transparent 60%),
+    radial-gradient(480px at 40% 108%, oklch(77.5% 0.163 76.2 / 0.14), transparent 62%);
 }
